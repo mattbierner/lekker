@@ -1,0 +1,24 @@
+{
+  "name": "model",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "./node_modules/.bin/webpack",
+    "compile:watch": "./node_modules/.bin/webpack --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.5.1",
+    "@types/three": "^0.92.9",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "webpack": "^4.12.2",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "three": "^0.94.0"
+  }
+}
