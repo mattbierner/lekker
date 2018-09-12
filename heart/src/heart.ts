@@ -20,27 +20,27 @@ export class Heart {
                     if (found || !(child instanceof THREE.Mesh)) {
                         return;
                     }
-                    found = true
+                    found = true;
                     resolve(child);
                 });
                 if (!found) {
                     reject(new Error('Could not load heart geometry'));
                 }
             });
-        })
+        });
     }
 
-    private readonly _vertexStates: { velocity: number, acceleration: number }[] = [];
+    private readonly _vertexStates: Array<{ velocity: number, acceleration: number }> = [];
     private readonly deformAttribute: THREE.BufferAttribute;
 
     private constructor(
         private readonly _mesh: THREE.Mesh,
-        private readonly _material: HeartMaterial
+        private readonly _material: HeartMaterial,
     ) {
         _mesh.material = this._material.material;
 
         const deforms: number[] = [];
-        for (let i = 0; i < this.geometry.attributes['position'].count; ++i) {
+        for (let i = 0; i < this.geometry.attributes.position.count; ++i) {
             deforms.push(0);
             this._vertexStates[i] = { acceleration: 0, velocity: 0 };
         }
@@ -75,10 +75,10 @@ export class Heart {
 
     public onClick(
         intersection: THREE.Vector3,
-        weight: number
+        weight: number,
     ) {
         const geometry = this.mesh.geometry as THREE.BufferGeometry;
-        const position = geometry.attributes['position'] as THREE.BufferAttribute;
+        const position = geometry.attributes.position as THREE.BufferAttribute;
         const values = this.deformAttribute.array;
         for (let i = 0; i < values.length; ++i) {
             const xPosition = position.array[i * 3];

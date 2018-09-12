@@ -9,8 +9,8 @@ const objectPadding = 0.25;
 const emptyVector3 = new THREE.Vector3();
 
 interface HeartSceneProps {
-    touchStart: () => void
-    touchEnd: () => void
+    touchStart: () => void;
+    touchEnd: () => void;
 }
 
 export class HeartScene {
@@ -25,11 +25,11 @@ export class HeartScene {
     private down: boolean;
 
     private faceRayDebugger: DebugRay | undefined;
-    private state: HeartState = HeartState.empty;;
+    private state: HeartState = HeartState.empty;
 
     constructor(
         container: HTMLElement,
-        private readonly _props: HeartSceneProps
+        private readonly _props: HeartSceneProps,
     ) {
         this.mouse = new THREE.Vector2(10000, 10000);
         this.down = false;
@@ -42,7 +42,7 @@ export class HeartScene {
 
         container.appendChild(this.renderer.domElement);
 
-        this.handleResize()
+        this.handleResize();
     }
 
     public setState(state: HeartState) {
@@ -123,10 +123,10 @@ export class HeartScene {
         const geometrySize = new THREE.Vector3();
         const box = new THREE.Box3().setFromObject(this.heart.mesh);
         box.getSize(geometrySize);
-        const width = geometrySize.x + objectPadding * 2
+        const width = geometrySize.x + objectPadding * 2;
         const fov = 2 * Math.atan((width / viewAspect) / (2 * this.camera.position.z)) * (180 / Math.PI);
         this.camera.fov = fov;
-        this.camera.aspect = viewAspect
+        this.camera.aspect = viewAspect;
         this.camera.updateProjectionMatrix();
     }
 
@@ -145,7 +145,6 @@ export class HeartScene {
         this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
         this.updateCamera();
     }
-
 
     public update(delta: number) {
         this.material.updateTime(delta);
@@ -188,7 +187,7 @@ export class HeartScene {
     }
 
     private render() {
-        this.renderer.render(this.scene, this.camera)
+        this.renderer.render(this.scene, this.camera);
     }
 
     public getMouseDownIntersection(): { position: THREE.Vector3, ray: THREE.Ray } | undefined {
@@ -202,7 +201,7 @@ export class HeartScene {
         if (intersects.length > 0) {
             return {
                 position: intersects[0].point,
-                ray: raycaster.ray
+                ray: raycaster.ray,
             };
         }
         return undefined;
@@ -224,10 +223,10 @@ export class HeartScene {
         if (intersects.length > 0) {
             return {
                 position: intersects[0].point,
-                ray: raycaster.ray
+                ray: raycaster.ray,
             };
         }
 
         return undefined;
     }
-} 
+}

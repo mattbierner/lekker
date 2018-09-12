@@ -7,6 +7,6 @@ export class HeartState {
         public vibrationIntensity: number,
         public faceMatrix: THREE.Matrix4 | undefined,
         public tongue: number,
-        public isTracking: boolean
+        public isTracking: boolean,
     ) { }
 }

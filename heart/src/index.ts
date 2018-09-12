@@ -9,11 +9,10 @@ class Main {
     constructor(container: HTMLElement) {
         this._scene = new HeartScene(container, {
             touchStart: () => postMessage('touchStart'),
-            touchEnd: () => postMessage('touchEnd')
+            touchEnd: () => postMessage('touchEnd'),
         });
 
         document.addEventListener('message', (event: any) => this.handleMessage(event.data));
-
 
         this._clock = new THREE.Clock();
 
@@ -26,7 +25,7 @@ class Main {
     }
 
     private setHeartState(state: HeartState) {
-        this._scene.setState(state)
+        this._scene.setState(state);
     }
 
     private handleMessage(data: any) {
@@ -34,12 +33,13 @@ class Main {
         switch (body.name) {
             case 'update':
                 const vibrationIntensity = body.intensity;
-                let faceMatrix: THREE.Matrix4 | undefined = undefined;
+                let faceMatrix: THREE.Matrix4 | undefined;
                 const tongue = body.faceState ? body.faceState.tongue : 0;
                 if (body.faceState && body.faceState) {
                     faceMatrix = new THREE.Matrix4().fromArray([].concat(...body.faceState.transform));
                 }
-                this.setHeartState(new HeartState(vibrationIntensity, faceMatrix, tongue, body.faceState.isActivelyTracking));
+                this.setHeartState(new HeartState(
+                    vibrationIntensity, faceMatrix, tongue, body.faceState.isActivelyTracking));
                 break;
         }
     }
@@ -59,5 +59,5 @@ function postMessage(name: string, ...body: any[]) {
     }), '*');
 }
 
-
+// tslint:disable-next-line:no-unused-expression
 new Main(document.querySelector('#container'));

@@ -14,7 +14,7 @@ export class HeartMaterial {
     }
 
     public updateTime(delta: number) {
-        const timeUniform: any = this._material.uniforms['time'];
+        const timeUniform: any = this._material.uniforms.time;
         timeUniform.value += delta;
     }
 

@@ -14,13 +14,13 @@ export function addBarycentricCoordinates(bufferGeometry: THREE.BufferGeometry, 
             barycentric.push(
                 0, 0, 1,
                 0, 1, 0,
-                1, 0, Q
+                1, 0, Q,
             );
         } else {
             barycentric.push(
                 0, 1, 0,
                 0, 0, 1,
-                1, 0, Q
+                1, 0, Q,
             );
         }
     }

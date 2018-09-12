@@ -51,7 +51,9 @@ export const shader: THREE.Shader = {
 
             // Deformation
             vDeform = deform;
-            vec3 pos = position + (n * displayment) + deform * vec3(0.0, 1.0, 1.0) * max(0.0, 4.0 - abs(position.x)) / 4.0;
+            vec3 pos = position
+                + (n * displayment)
+                + deform * vec3(0.0, 1.0, 1.0) * max(0.0, 4.0 - abs(position.x)) / 4.0;
 
             gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
         }
@@ -80,7 +82,7 @@ export const shader: THREE.Shader = {
             // feed into our frag colour
             gl_FragColor = vec4(
                 (baseColor + vec3(vDeform * 0.25, 0, 0)) * (dProd) + vec3(d),
-                1.0); 
+                1.0);
         }
-    `
-}
+    `,
+};
