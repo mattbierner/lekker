@@ -6,11 +6,11 @@ import { Milliseconds } from '../util/time_units';
  */
 export class LoggingToyControllerWrapper implements ToyController {
     constructor(
-        private readonly controller: ToyController
+        private readonly controller: ToyController,
     ) { }
 
-    setVibrationStrength(strength: number, timeout: Milliseconds) {
-        console.log('Updating vibration: ' + strength)
-        return this.controller.setVibrationStrength(strength, timeout)
+    public setVibrationStrength(strength: number, timeout: Milliseconds) {
+        console.log('Updating vibration: ' + strength);
+        return this.controller.setVibrationStrength(strength, timeout);
     }
 }

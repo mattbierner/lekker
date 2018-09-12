@@ -2,26 +2,25 @@ import * as React from 'react';
 import { View } from 'react-native';
 import * as config from '../config';
 
-
 const { AdMobBanner } = require('react-native-admob');
 
 interface BannerAdProps {
-    onAdOpened?: () => void
+    onAdOpened?: () => void;
 }
 
 interface BannerAdState {
-    error?: Error
+    error?: Error;
 }
 
 export default class BannerAd extends React.Component<BannerAdProps, BannerAdState> {
     constructor(props: any) {
         super(props);
-        this.state = {}
+        this.state = {};
     }
 
-    render() {
+    public render() {
         if (this.state.error || config.disableAds) {
-            return <View />
+            return <View />;
         }
 
         return (
@@ -33,8 +32,8 @@ export default class BannerAd extends React.Component<BannerAdProps, BannerAdSta
                 onAdOpened={this.props.onAdOpened}
                 onAdLeftApplication={this.props.onAdOpened}
                 onAdFailedToLoad={(error: any) => {
-                    this.setState({ error })
+                    this.setState({ error });
                 }} />
-        )
+        );
     }
 }

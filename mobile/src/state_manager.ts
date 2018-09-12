@@ -11,4 +11,3 @@ export class StateManager {
         AsyncStorage.setItem(StateManager.hasAppRunKey, 'true');
     }
 }
-

@@ -11,12 +11,11 @@ import { NativeToyController } from './native_toy_controller';
 export interface ToyController {
     setVibrationStrength(
         strength: number,
-        timeout: Milliseconds
-    ): Promise<boolean>
+        timeout: Milliseconds,
+    ): Promise<boolean>;
 }
-
 
 export const getToyController = () => {
-    const realController = config.mock ? new MockToyController() : new NativeToyController()
-    return new MemoryToyControllerWrapper(new LoggingToyControllerWrapper(realController))
-}
+    const realController = config.mock ? new MockToyController() : new NativeToyController();
+    return new MemoryToyControllerWrapper(new LoggingToyControllerWrapper(realController));
+};

@@ -10,7 +10,7 @@ export class MockToyManager implements ToyManager {
     private connectDelay: number = 1000;
 
     constructor(
-        private readonly delegate: ToyManagerDelegate
+        private readonly delegate: ToyManagerDelegate,
     ) {
         this.toys = ToyList.empty.put(mockToy1).put(mockToy2);
         this.delegate.onUpdatedToys(this.toys);
@@ -25,9 +25,9 @@ export class MockToyManager implements ToyManager {
         onFoundDevice(this.toys);
     }
 
-    public stopScan(): void { }
+    public stopScan(): void { /* noop */ }
 
-    async connectToy(toy: Toy): Promise<Toy> {
+    public async connectToy(toy: Toy): Promise<Toy> {
         const existingToy = this.toys.get(toy.identifier);
         if (!existingToy) {
             return toy;
@@ -44,7 +44,7 @@ export class MockToyManager implements ToyManager {
         }, this.connectDelay));
     }
 
-    async disconnectToy(toy: Toy): Promise<boolean> {
+    public async disconnectToy(toy: Toy): Promise<boolean> {
         this.toys = this.toys.put(toy.asConnected(ToyConnectionType.Disconnected));
         this.delegate.onUpdatedToys(this.toys);
         return true;

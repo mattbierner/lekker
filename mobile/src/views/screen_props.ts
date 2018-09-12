@@ -14,5 +14,5 @@ export default interface ScreenProps extends NavigationScreenProps<any> {
         readonly toys: ToyList;
         readonly stateManager: StateManager;
         readonly bluetoothEnabled: boolean;
-    }
+    };
 }

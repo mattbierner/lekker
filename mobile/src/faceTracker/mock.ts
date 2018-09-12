@@ -40,7 +40,7 @@ export class MockFaceTracker implements FaceTracker {
                 isTrackingEnabled: true,
                 isActivelyTracking: true,
                 tongue: value,
-                transform: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+                transform: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
             });
         }
     }

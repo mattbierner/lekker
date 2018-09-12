@@ -12,48 +12,46 @@ import ScreenProps from './../screen_props';
 import { HeartView } from './heart';
 import { StatsView } from './stats';
 
-const Button = require('apsl-react-native-button')
-const Icon = require('react-native-vector-icons/MaterialIcons').default
-const { withMappedNavigationProps } = require('react-navigation-props-mapper')
-
+const Button = require('apsl-react-native-button');
+const Icon = require('react-native-vector-icons/MaterialIcons').default;
+const { withMappedNavigationProps } = require('react-navigation-props-mapper');
 
 interface HomeViewProps extends ScreenProps { }
 
 interface HomeViewState {
-    playing: boolean
+    playing: boolean;
     level: number;
     faceState: FaceState | undefined;
 }
 
 export default withMappedNavigationProps(class HomeView extends React.Component<HomeViewProps, HomeViewState> {
-    public static readonly route = routes.Home
+    public static readonly route = routes.Home;
 
     public static readonly navigationOptions = {
         title: 'Home',
-        header: null
-    }
+        header: null,
+    };
     private _driver?: Driver;
 
-
     constructor(props: HomeViewProps) {
-        super(props)
+        super(props);
 
         this.state = {
             playing: true,
             level: 0,
-            faceState: undefined
-        }
+            faceState: undefined,
+        };
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.onDidBecomeVisible();
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this.onDidBecomeHidden();
     }
 
-    componentWillReceiveProps(newProps: HomeViewProps) {
+    public componentWillReceiveProps(newProps: HomeViewProps) {
         if (newProps.screenProps.currentScreen !== this.props.screenProps.currentScreen) {
             if (newProps.screenProps.currentScreen === routes.Home) {
                 this.onDidBecomeVisible();
@@ -70,7 +68,7 @@ export default withMappedNavigationProps(class HomeView extends React.Component<
             this._driver = new Driver(this.props.screenProps.toyController, this.props.screenProps.faceTracker, (data) => {
                 this.setState({
                     level: data.level,
-                    faceState: data.faceState
+                    faceState: data.faceState,
                 });
             });
         }
@@ -88,7 +86,7 @@ export default withMappedNavigationProps(class HomeView extends React.Component<
         }
     }
 
-    render() {
+    public render() {
         return (
             <SafeAreaView style={styles.wrapper}>
                 <View style={[styles.content, styles.navButtons]}>
@@ -103,12 +101,12 @@ export default withMappedNavigationProps(class HomeView extends React.Component<
                         faceState={this.state.faceState}
                         touchStart={() => {
                             if (this._driver) {
-                                this._driver.touchStart()
+                                this._driver.touchStart();
                             }
                         }}
                         touchEnd={() => {
                             if (this._driver) {
-                                this._driver.touchEnd()
+                                this._driver.touchEnd();
                             }
                         }} />
                 </View>
@@ -125,14 +123,14 @@ export default withMappedNavigationProps(class HomeView extends React.Component<
                 </View>
                 <BannerAd />
             </SafeAreaView>
-        )
+        );
     }
 
     private togglePlay(): void {
         if (this.state.playing) {
-            this.stop()
+            this.stop();
         } else {
-            this.play()
+            this.play();
         }
     }
 
@@ -151,18 +149,18 @@ export default withMappedNavigationProps(class HomeView extends React.Component<
     }
 
     private onSettingsButtonPress(): void {
-        this.props.navigation.navigate(routes.Settings)
+        this.props.navigation.navigate(routes.Settings);
     }
 });
 
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: colors.white,
-        flex: 1
+        flex: 1,
     },
     content: {
         paddingLeft: 16,
-        paddingRight: 16
+        paddingRight: 16,
     },
     createdText: {
         textAlign: 'center',
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
     activeText: {
         textDecorationLine: 'underline',
         textDecorationStyle: 'solid',
-        textDecorationColor: 'black'
+        textDecorationColor: 'black',
     },
     navButtons: {
         flexDirection: 'row',
@@ -192,16 +190,16 @@ const styles = StyleSheet.create({
         width: media.on5SOrSmaller() ? 55 : 65,
         height: media.on5SOrSmaller() ? 55 : 65,
         borderRadius: 100,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
     },
     loveButtonActive: {
         backgroundColor: colors.red,
-        borderWidth: 0
+        borderWidth: 0,
     },
     noFaceTrackingAlert: {
         color: colors.gray,
         textAlign: 'center',
         paddingTop: 8,
-        paddingBottom: 8
-    }
-})
+        paddingBottom: 8,
+    },
+});

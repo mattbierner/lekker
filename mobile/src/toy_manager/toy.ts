@@ -1,14 +1,14 @@
 export interface ToyResult {
-    name: string
-    identifier: string
-    connected: boolean
-    type: string
+    name: string;
+    identifier: string;
+    connected: boolean;
+    type: string;
 }
 
 export enum ToyType {
     Unknown,
     Hush,
-    Lush
+    Lush,
 }
 
 export enum ToyConnectionType {
@@ -16,7 +16,7 @@ export enum ToyConnectionType {
     Disconnected,
     Connected,
     Connecting,
-    Disconnecting
+    Disconnecting,
 }
 
 export class Toy {
@@ -24,7 +24,7 @@ export class Toy {
         public readonly type: ToyType,
         public readonly connectionType: ToyConnectionType,
         public readonly name: string,
-        public readonly identifier: string
+        public readonly identifier: string,
     ) { }
 
     public asConnected(connectionType: ToyConnectionType = ToyConnectionType.Connected): Toy {
@@ -32,19 +32,19 @@ export class Toy {
             this.type,
             connectionType,
             this.name,
-            this.identifier)
+            this.identifier);
     }
 
     public get displayName(): string {
         switch (this.type) {
             case ToyType.Hush:
-                return 'Hush'
+                return 'Hush';
 
             case ToyType.Lush:
-                return 'Lush'
+                return 'Lush';
 
             default:
-                return 'Unknown Toy'
+                return 'Unknown Toy';
         }
     }
 }
@@ -52,10 +52,10 @@ export class Toy {
 export const toToyType = (type: string): ToyType => {
     switch (type) {
         case 'lush':
-            return ToyType.Lush
+            return ToyType.Lush;
         case 'hush':
-            return ToyType.Hush
+            return ToyType.Hush;
         default:
-            return ToyType.Unknown
+            return ToyType.Unknown;
     }
-}
+};

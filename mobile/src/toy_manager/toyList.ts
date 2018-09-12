@@ -10,7 +10,7 @@ export class ToyList {
 
     public [Symbol.iterator] = () => {
         return this.toys.values();
-    };
+    }
 
     public get(id: string) {
         return this.toys.get(id);

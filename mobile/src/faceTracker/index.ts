@@ -15,19 +15,18 @@ export interface FaceState {
 
     /**
      * Extension of the tonge. Range between 0 (no extension) and 1 (fully extended)
-     * 
+     *
      * Null when tracking is not active.
      */
     readonly tongue: number | null;
 
     /**
      * Tranform matrix of the face.
-     * 
+     *
      * Null when tracking is not active.
      */
     readonly transform: number[][] | null;
 }
-
 
 export interface FaceTracker {
     /**
@@ -41,11 +40,11 @@ export interface FaceTracker {
     stopTracking(): Promise<boolean>;
 
     /**
-     * Subscribe to face state updates. 
+     * Subscribe to face state updates.
      */
     onDidUpdate(handler: (value: FaceState) => void): void;
 }
 
 export const getFaceTracker = () => {
-    return config.mock ? new MockFaceTracker() : new NativeFaceTracker()
-}
+    return config.mock ? new MockFaceTracker() : new NativeFaceTracker();
+};

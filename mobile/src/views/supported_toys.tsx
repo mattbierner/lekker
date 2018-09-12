@@ -18,12 +18,11 @@ const supportedToys: SupportedToy[] = [
     {
         label: 'Lovense Hush Vibrator',
         get icon() { return require('../../images/hush.png'); },
-    }
+    },
 ];
 
-
 export default class SupportedToys extends React.Component<ScreenProps> {
-    private _keyExtractor = (item: SupportedToy) => item.label
+    private _keyExtractor = (item: SupportedToy) => item.label;
 
     public static readonly route = routes.SupportedToys;
     public static navigationOptions = {
@@ -33,12 +32,12 @@ export default class SupportedToys extends React.Component<ScreenProps> {
             backgroundColor: colors.red,
         },
         headerTitleStyle: {
-            color: colors.white
+            color: colors.white,
         },
-        headerTintColor: colors.white
-    }
+        headerTintColor: colors.white,
+    };
 
-    render() {
+    public render() {
         return (
             <SafeAreaView style={styles.wrapper}>
                 <FlatList
@@ -49,7 +48,7 @@ export default class SupportedToys extends React.Component<ScreenProps> {
                     <Text style={styles.notAssociatedWarning}>Lekker is not associated with or endorsed by any toy manufactures</Text>
                 </View>
             </SafeAreaView>
-        )
+        );
     }
 
     private renderItem(item: SupportedToy) {
@@ -76,19 +75,19 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 16,
         paddingLeft: 32,
-        paddingRight: 32
+        paddingRight: 32,
     },
     notAssociatedWarning: {
         textAlign: 'center',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
     },
     toyLabel: {
         flex: 1,
-        paddingLeft: 16
+        paddingLeft: 16,
     },
     toyIcon: {
         width: 60,
         height: 60,
-        marginRight: 8
-    }
+        marginRight: 8,
+    },
 });

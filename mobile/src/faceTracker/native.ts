@@ -12,7 +12,6 @@ interface NativeIsTrackingData {
     readonly isTracking: boolean;
 }
 
-
 /**
  * Face tracker using actual device
  */
@@ -47,7 +46,7 @@ export class NativeFaceTracker implements FaceTracker {
                 isTrackingEnabled: false,
                 isActivelyTracking: false,
                 tongue: null,
-                transform: null
+                transform: null,
             });
             return false;
         }
@@ -72,7 +71,7 @@ export class NativeFaceTracker implements FaceTracker {
             isTrackingEnabled: !!this._enabled,
             isActivelyTracking: false,
             tongue: null,
-            transform: null
+            transform: null,
         });
 
         return true;
@@ -91,7 +90,7 @@ export class NativeFaceTracker implements FaceTracker {
             isTrackingEnabled: !!this._enabled,
             isActivelyTracking: this._isTracking,
             tongue: value.tongue,
-            transform: value.transfrorm
+            transform: value.transfrorm,
         });
     }
 

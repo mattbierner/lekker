@@ -1,0 +1,20 @@
+{
+    "defaultSeverity": "error",
+    "extends": "tslint:recommended",
+    "rules": {
+        "quotemark": false,
+        "variable-name": false,
+        "member-ordering": false,
+        "interface-name": false,
+        "arrow-parens": false,
+        "object-literal-sort-keys": false,
+        "max-classes-per-file": false,
+        "no-var-requires": false,
+        "max-line-length": false,
+        "no-console": false,
+        "no-shadowed-variable": false,
+        "ordered-imports": false,
+        "no-empty-interface": false
+    },
+    "rulesDirectory": []
+}

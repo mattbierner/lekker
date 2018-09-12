@@ -7,27 +7,27 @@ import * as routes from '../../routes';
 import ScreenProps from '../screen_props';
 import SelectToyView from './select_toy';
 
-interface WelcomeProps extends ScreenProps { }
+type WelcomeProps = ScreenProps;
 
 /**
  * Landing page
  */
 export default class WelcomePage extends React.Component<WelcomeProps> {
-    public static readonly route = routes.Welcome
+    public static readonly route = routes.Welcome;
     public static navigationOptions = {
         title: 'Welcome',
         gesturesEnabled: false,
-        header: null
-    }
+        header: null,
+    };
 
-    private _onDone: () => void = () => { }
+    private _onDone: () => void = () => void 0;
 
-    render() {
+    public render() {
         const body = <SelectToyView
             {...this.props}
             onContinue={() => this.onContinue()}
             onDone={(cb: () => void) => {
-                this._onDone = cb
+                this._onDone = cb;
             }} />;
 
         return (
@@ -40,16 +40,16 @@ export default class WelcomePage extends React.Component<WelcomeProps> {
                     {body}
                 </View>
             </SafeAreaView>
-        )
+        );
     }
 
     private onContinue() {
-        this.goHome()
+        this.goHome();
     }
 
     private goHome() {
-        this._onDone()
-        this.props.navigation.navigate('Home')
+        this._onDone();
+        this.props.navigation.navigate('Home');
     }
 }
 
@@ -61,33 +61,33 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         alignItems: 'center',
-        padding: 8
+        padding: 8,
     },
     image: {
         width: 250,
-        height: 250
+        height: 250,
     },
     header: {
         paddingTop: 60,
-        paddingBottom: media.on5SOrSmaller() ? 10 : 20
+        paddingBottom: media.on5SOrSmaller() ? 10 : 20,
     },
     footer: {
         position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     footerText: {
         color: 'rgba(0, 0, 0, 0.6)',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     buttonText: {
         color: colors.white,
         fontFamily: 'HelveticaNeue',
-        fontWeight: '300'
+        fontWeight: '300',
     },
     aboutButton: {
-        borderWidth: 0
+        borderWidth: 0,
     },
-})
+});

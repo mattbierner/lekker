@@ -5,44 +5,42 @@ import ToyListView from '../../components/device_list';
 import * as routes from '../../routes';
 import ScreenProps from '../screen_props';
 
-const Button = require('apsl-react-native-button')
-
+const Button = require('apsl-react-native-button');
 
 interface SelectToyProps extends ScreenProps {
-    onContinue: () => void
-    onDone: (cb: () => void) => void
+    onContinue: () => void;
+    onDone: (cb: () => void) => void;
 }
 
 interface SelectToyState {
-    scanning: boolean
+    scanning: boolean;
 }
-
 
 export default class SelectToys extends React.Component<SelectToyProps, SelectToyState> {
     constructor(props: SelectToyProps) {
-        super(props)
+        super(props);
         this.state = {
-            scanning: false
-        }
+            scanning: false,
+        };
 
         this.props.onDone(() => {
-            this.setState({ scanning: false })
-        })
+            this.setState({ scanning: false });
+        });
     }
 
-    componentDidMount() {
-        this.setState({ scanning: this.props.screenProps.bluetoothEnabled })
+    public componentDidMount() {
+        this.setState({ scanning: this.props.screenProps.bluetoothEnabled });
     }
 
-    componentWillUnmount() {
-        this.setState({ scanning: false })
+    public componentWillUnmount() {
+        this.setState({ scanning: false });
     }
 
-    componentWillReceiveProps(newProps: SelectToyProps) {
-        this.setState({ scanning: newProps.screenProps.bluetoothEnabled })
+    public componentWillReceiveProps(newProps: SelectToyProps) {
+        this.setState({ scanning: newProps.screenProps.bluetoothEnabled });
     }
 
-    render() {
+    public render() {
         return (
             <View style={styles.view}>
                 <Text style={styles.selectToyHeader}>Select Your Toys</Text>
@@ -76,7 +74,7 @@ export default class SelectToys extends React.Component<SelectToyProps, SelectTo
                     </Button>
                 </View>
             </View>
-        )
+        );
     }
 
     private onSupported() {
@@ -84,7 +82,7 @@ export default class SelectToys extends React.Component<SelectToyProps, SelectTo
     }
 
     private onAbout() {
-        this.props.navigation.navigate(routes.About)
+        this.props.navigation.navigate(routes.About);
     }
 }
 
@@ -96,26 +94,26 @@ const styles = StyleSheet.create({
     buttonText: {
         color: colors.black,
         fontFamily: 'HelveticaNeue',
-        fontWeight: '300'
+        fontWeight: '300',
     },
     selectToyHeader: {
         textAlign: 'center',
         color: colors.black,
         fontSize: 16,
         marginBottom: 10,
-        fontWeight: '300'
+        fontWeight: '300',
     },
     supportedToysButton: {
         borderWidth: 0,
     },
     continueButton: {
         borderWidth: 0,
-        flex: 1
+        flex: 1,
     },
     toyList: {
         backgroundColor: '#eee',
         alignSelf: 'stretch',
         padding: 10,
-        borderRadius: 8
+        borderRadius: 8,
     },
-})
+});

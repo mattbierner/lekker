@@ -16,31 +16,27 @@ interface HelpSection {
 const helpSections: HelpSection[] = [
     {
         videoUrl: 'help/help1.mp4',
-        text: "Lekker lets you use your tongue to control your favorite sex toys"
+        text: "Lekker lets you use your tongue to control your favorite sex toys",
     }, {
         videoUrl: 'help/help2.mp4',
-        text: "To get started, turn on your bluetooth toy and select it in the app"
+        text: "To get started, turn on your bluetooth toy and select it in the app",
     }, {
         videoUrl: 'help/help3.mp4',
-        text: "The main screen shows a 3D heart. Stick out your tongue to lick it. The heart is connected directly to the toys"
+        text: "The main screen shows a 3D heart. Stick out your tongue to lick it. The heart is connected directly to the toys",
     }, {
         videoUrl: 'help/help4.mp4',
-        text: "Keep licking to increase vibration strength. If your phone doesn't have a TrueDepth camera, you can also touch the heart to increase strength"
+        text: "Keep licking to increase vibration strength. If your phone doesn't have a TrueDepth camera, you can also touch the heart to increase strength",
     }, {
         videoUrl: 'help/help5.mp4',
-        text: "Tap on the gear icon in the top right corner to connect or disconnect toys, and to configure the app"
+        text: "Tap on the gear icon in the top right corner to connect or disconnect toys, and to configure the app",
     }, {
         videoUrl: 'help/help6.mp4',
-        text: "Have fun!"
+        text: "Have fun!",
     },
 ];
 
-interface AboutViewProps extends ScreenProps { }
-
-interface AboutViewState { }
-
-export default class AboutView extends React.Component<AboutViewProps, AboutViewState> {
-    public static readonly route = routes.About
+export default class AboutView extends React.Component<ScreenProps> {
+    public static readonly route = routes.About;
 
     public static readonly navigationOptions = {
         title: 'About',
@@ -51,7 +47,7 @@ export default class AboutView extends React.Component<AboutViewProps, AboutView
     private pages: HelpPage[] = [];
     private _currentPage = 0;
 
-    constructor(props: AboutViewProps) {
+    constructor(props: ScreenProps) {
         super(props);
 
         this.pageElements = helpSections.map((page, i) =>
@@ -72,12 +68,12 @@ export default class AboutView extends React.Component<AboutViewProps, AboutView
                 {i === helpSections.length - 1
                     ? <Button title="Get Started" color={colors.lekkerRed} onPress={() => this.props.navigation.goBack()} />
                     : undefined}
-            </HelpPage>)
+            </HelpPage>);
     }
 
     private _progress = new Animated.Value(0);
 
-    componentDidMount() {
+    public componentDidMount() {
         this._progress.addListener(value => {
             if (!this.pages.length) {
                 return;
@@ -92,11 +88,11 @@ export default class AboutView extends React.Component<AboutViewProps, AboutView
         });
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this._progress.removeAllListeners();
     }
 
-    render() {
+    public render() {
         return (
             <SafeAreaView style={styles.wrapper}>
                 <StatusBar barStyle='default' />
@@ -117,22 +113,22 @@ class HelpPage extends React.PureComponent<HelpSection & { children?: JSX.Elemen
     constructor(props: HelpSection & { children: JSX.Element[] | JSX.Element }) {
         super(props);
         this.state = {
-            playing: false
+            playing: false,
         };
     }
 
-    start() {
+    public start() {
         this.setState({ playing: true });
     }
 
-    stop() {
+    public stop() {
         this.setState({ playing: false });
         if (this._video) {
             this._video.seek(0);
         }
     }
 
-    render() {
+    public render() {
         return (
             <View style={styles.view}>
                 <Video source={{ uri: this.props.videoUrl }}
@@ -141,7 +137,7 @@ class HelpPage extends React.PureComponent<HelpSection & { children?: JSX.Elemen
                     style={styles.backgroundVideo}
                     repeat={true}
                     paused={!this.state.playing}
-                    onEnd={() => { }}
+                    onEnd={() => void 0}
                     onError={console.error}
                     muted={true}
                     volume={0}
@@ -156,7 +152,7 @@ class HelpPage extends React.PureComponent<HelpSection & { children?: JSX.Elemen
     }
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: colors.white,
         flex: 1,
@@ -170,7 +166,7 @@ var styles = StyleSheet.create({
         top: 0,
         left: 0,
         bottom: 0,
-        right: 0
+        right: 0,
     },
     text: {
         textAlign: 'center',
@@ -180,6 +176,6 @@ var styles = StyleSheet.create({
         right: 0,
         fontSize: on5SOrSmaller() ? 16 : 18,
         color: colors.black,
-        fontFamily: 'Futura-Medium'
-    }
+        fontFamily: 'Futura-Medium',
+    },
 });

@@ -26,16 +26,16 @@ export class HeartView extends React.PureComponent<HeartViewProps, HeartViewStat
     constructor(props: HeartViewProps) {
         super(props);
         this.state = {
-            enabled: false
+            enabled: false,
         };
     }
 
-    componentWillMount() {
-        this._webviewInstance = Date.now()
-        delay(new Milliseconds(200)).then(() => { this.setState({ enabled: true }) });
+    public componentWillMount() {
+        this._webviewInstance = Date.now();
+        delay(new Milliseconds(200)).then(() => { this.setState({ enabled: true }); });
     }
 
-    componentWillUpdate(newProps: HeartViewProps) {
+    public componentWillUpdate(newProps: HeartViewProps) {
         if (!this._ref) {
             return;
         }
@@ -43,28 +43,28 @@ export class HeartView extends React.PureComponent<HeartViewProps, HeartViewStat
         this._ref.postMessage(JSON.stringify({
             name: 'update',
             intensity: newProps.intensity,
-            faceState: newProps.faceState
+            faceState: newProps.faceState,
         }));
     }
 
-    render() {
+    public render() {
         return <WebView
-            style={{ flex: 1, backgroundColor: colors.white, }}
+            style={{ flex: 1, backgroundColor: colors.white }}
             scrollEnabled={false}
             source={config.useLocalHostWebview ? { uri: 'http://imac.local:8080?' + this._webviewInstance } : { uri: 'index.html', baseUrl: '.' }}
             ref={(self: any) => this._ref = self}
             onMessage={message => this.handleMessage(message.nativeEvent.data)}
-            originWhitelist={['file://*']} />
+            originWhitelist={['file://*']} />;
     }
 
     private handleMessage(data: any) {
         const body = JSON.parse(data);
         switch (body.name) {
             case 'touchStart':
-                this.props.touchStart()
+                this.props.touchStart();
                 break;
             case 'touchEnd':
-                this.props.touchEnd()
+                this.props.touchEnd();
                 break;
         }
     }

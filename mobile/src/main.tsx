@@ -13,26 +13,26 @@ import SupportedToys from './views/supported_toys';
 import WelcomeView from './views/welcome_view';
 
 interface MainState {
-    readonly currentScreen: string | null
-    readonly toys: ToyList
-    readonly bluetoothEnabled: boolean
+    readonly currentScreen: string | null;
+    readonly toys: ToyList;
+    readonly bluetoothEnabled: boolean;
 }
 
 export default class Main extends React.Component<{}, MainState> {
     private readonly Stack: NavigationContainer;
     private readonly toyController: ToyController;
     private readonly faceTracker: FaceTracker;
-    private readonly stateManager = new StateManager()
+    private readonly stateManager = new StateManager();
     private toyManager?: ToyManager;
 
     public constructor(props: {}) {
-        super(props)
+        super(props);
 
         this.state = {
             currentScreen: null,
             toys: ToyList.empty,
-            bluetoothEnabled: false
-        }
+            bluetoothEnabled: false,
+        };
 
         this.toyController = getToyController();
         this.faceTracker = getFaceTracker();
@@ -43,39 +43,39 @@ export default class Main extends React.Component<{}, MainState> {
                 AboutView,
                 SettingsView,
                 HomeView,
-                SupportedToys
+                SupportedToys,
             ]).reduce((routes, route) => {
-                routes[route.route] = { screen: route }
-                return routes
+                routes[route.route] = { screen: route };
+                return routes;
             }, {} as any),
             {
-                initialRouteName: routes.Welcome
+                initialRouteName: routes.Welcome,
             });
 
         this.Stack.router.getStateForAction = navigateOnce(this.Stack.router.getStateForAction);
     }
 
-    componentWillMount() {
+    public componentWillMount() {
         this.toyManager = getToyManager({
             onUpdatedToys: (toys) => {
                 if (!toys.equals(this.state.toys)) {
-                    this.setState({ toys: toys })
+                    this.setState({ toys });
                 }
             },
             onChangedBluetooth: (isEnabled) => {
-                this.setState({ bluetoothEnabled: isEnabled })
-            }
-        })
+                this.setState({ bluetoothEnabled: isEnabled });
+            },
+        });
     }
 
-    render() {
+    public render() {
         return (
             <this.Stack
                 onNavigationStateChange={(prevState: any, currentState: any) => {
-                    const currentScreen = getCurrentRouteName(currentState)
-                    const prevScreen = getCurrentRouteName(prevState)
+                    const currentScreen = getCurrentRouteName(currentState);
+                    const prevScreen = getCurrentRouteName(prevState);
                     if (prevScreen !== currentScreen) {
-                        this.setState({ currentScreen: currentScreen })
+                        this.setState({ currentScreen });
                     }
                 }}
                 screenProps={{
@@ -87,7 +87,7 @@ export default class Main extends React.Component<{}, MainState> {
                     stateManager: this.stateManager,
                     bluetoothEnabled: this.state.bluetoothEnabled,
                 }} />
-        )
+        );
     }
 }
 
@@ -112,4 +112,3 @@ const navigateOnce = (getStateForAction: any) => (action: any, state: any) => {
     ) ? null : getStateForAction(action, state);
     // you might want to replace 'null' with 'state' if you're using redux (see comments below)
 };
-

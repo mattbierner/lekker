@@ -7,25 +7,23 @@ import { Toy, ToyConnectionType, ToyType } from '../toy_manager/toy';
 import { ToyList } from '../toy_manager/toyList';
 import { Milliseconds } from '../util/time_units';
 
-
 class ToyIcon extends React.Component<{ toy: Toy }> {
-    render() {
+    public render() {
         switch (this.props.toy.type) {
             case ToyType.Hush:
-                return <Image style={styles.toyIcon} source={require('../../images/hush.png')} />
+                return <Image style={styles.toyIcon} source={require('../../images/hush.png')} />;
 
             case ToyType.Lush:
-                return <Image style={styles.toyIcon} source={require('../../images/lush.png')} />
+                return <Image style={styles.toyIcon} source={require('../../images/lush.png')} />;
 
             default:
-                return <View />
+                return <View />;
         }
     }
 }
 
-
 class ToyRow extends React.Component<{ toy: Toy, onChangeConnection: (toy: Toy, connected: boolean) => void, toyController: ToyController }> {
-    render() {
+    public render() {
         return (
             <TouchableHighlight onPress={() => this.onPress()} underlayColor='transparent' activeOpacity={this.props.toy.connectionType === ToyConnectionType.Connected ? 0.75 : 1}>
                 <View style={styles.row}>
@@ -40,59 +38,58 @@ class ToyRow extends React.Component<{ toy: Toy, onChangeConnection: (toy: Toy, 
                         onValueChange={value => this.onSwitch(value)} />
                 </View>
             </TouchableHighlight>
-        )
+        );
     }
 
     private onSwitch(newValue: boolean) {
-        this.props.onChangeConnection(this.props.toy, newValue)
+        this.props.onChangeConnection(this.props.toy, newValue);
     }
 
     private onPress() {
         if (this.props.toy.connectionType === ToyConnectionType.Connected) {
             this.props.toyController.setVibrationStrength(20, new Milliseconds(500)).then(() => {
                 setTimeout(() => {
-                    this.props.toyController.setVibrationStrength(0, new Milliseconds(1000))
-                }, 250)
-            })
+                    this.props.toyController.setVibrationStrength(0, new Milliseconds(1000));
+                }, 250);
+            });
         }
     }
 }
 
-
 interface ToyListProps {
-    bluetoothEnabled: boolean
-    toys: ToyList
-    toyManager: ToyManager
-    toyController: ToyController
-    style: StyleProp<ViewStyle>
-    onDidConnectToy?: (toy: Toy) => void
-    renderLoading?: boolean
-    scanning: boolean
+    bluetoothEnabled: boolean;
+    toys: ToyList;
+    toyManager: ToyManager;
+    toyController: ToyController;
+    style: StyleProp<ViewStyle>;
+    onDidConnectToy?: (toy: Toy) => void;
+    renderLoading?: boolean;
+    scanning: boolean;
 }
 
-type ToyRowElement = Toy | 'loading' | 'bluetooth-alert'
+type ToyRowElement = Toy | 'loading' | 'bluetooth-alert';
 
 export default class ToyListView extends React.Component<ToyListProps, {}> {
-    private _keyExtractor = (item: ToyRowElement) => typeof item === 'string' ? item : item.identifier
+    private _keyExtractor = (item: ToyRowElement) => typeof item === 'string' ? item : item.identifier;
 
-    private _scanning: boolean = false
+    private _scanning: boolean = false;
 
-    componentDidMount() {
-        this.toggleScan(this.props.scanning)
+    public componentDidMount() {
+        this.toggleScan(this.props.scanning);
     }
 
-    componentWillUnmount(): void {
-        this.toggleScan(false)
+    public componentWillUnmount(): void {
+        this.toggleScan(false);
     }
 
-    componentWillReceiveProps(newProps: ToyListProps) {
-        this.toggleScan(newProps.scanning)
+    public componentWillReceiveProps(newProps: ToyListProps) {
+        this.toggleScan(newProps.scanning);
     }
 
-    render() {
-        let data: ToyRowElement[] = Array.from(this.props.toys)
+    public render() {
+        let data: ToyRowElement[] = Array.from(this.props.toys);
         if (this.props.renderLoading || this.props.toys.isEmpty) {
-            data.push('loading')
+            data.push('loading');
         }
 
         if (!this.props.bluetoothEnabled) {
@@ -105,7 +102,7 @@ export default class ToyListView extends React.Component<ToyListProps, {}> {
                 data={data}
                 renderItem={({ item }) => this.renderRow(item)}
                 keyExtractor={this._keyExtractor} />
-        )
+        );
     }
 
     private renderRow(rowData: ToyRowElement) {
@@ -114,7 +111,7 @@ export default class ToyListView extends React.Component<ToyListProps, {}> {
                 <View style={[styles.row, { height: 40, justifyContent: 'center' }]}>
                     <Text style={{ color: colors.gray, fontSize: 12 }}>Please enable bluetooth</Text>
                 </View>
-            )
+            );
         }
 
         if (rowData === 'loading') {
@@ -123,13 +120,13 @@ export default class ToyListView extends React.Component<ToyListProps, {}> {
                     <Text style={{ color: colors.gray, fontSize: 12 }}>Scanning...</Text>
                     <ActivityIndicator size='small' style={{ marginLeft: 8 }} />
                 </View>
-            )
+            );
         }
 
         return <ToyRow
             toy={rowData}
             toyController={this.props.toyController}
-            onChangeConnection={(toy, connected) => this.changeConnection(toy, connected)} />
+            onChangeConnection={(toy, connected) => this.changeConnection(toy, connected)} />;
     }
 
     private changeConnection(toy: Toy, connected: boolean) {
@@ -137,31 +134,30 @@ export default class ToyListView extends React.Component<ToyListProps, {}> {
             this.props.toyManager.connectToy(toy)
                 .then(toy => {
                     if (this.props.onDidConnectToy) {
-                        this.props.onDidConnectToy(toy)
+                        this.props.onDidConnectToy(toy);
                     }
-                })
+                });
         } else {
-            this.props.toyManager.disconnectToy(toy)
+            this.props.toyManager.disconnectToy(toy);
         }
     }
 
     private toggleScan(newScanning: boolean) {
         if (this._scanning === newScanning) {
-            return
+            return;
         }
 
         if (newScanning) {
             this.props.toyManager.beginScan((toys: ToyList) => {
                 this.setState({ toys });
-            })
+            });
         } else {
-            this.props.toyManager.stopScan()
+            this.props.toyManager.stopScan();
         }
 
-        this._scanning = newScanning
+        this._scanning = newScanning;
     }
 }
-
 
 const styles = StyleSheet.create({
     row: {
@@ -169,14 +165,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 4,
-        paddingBottom: 4
+        paddingBottom: 4,
     },
     toyLabel: {
-        flex: 1
+        flex: 1,
     },
     toyIcon: {
         width: 40,
         height: 40,
-        marginRight: 8
-    }
-})
+        marginRight: 8,
+    },
+});

@@ -31,7 +31,7 @@ export class Driver {
     constructor(
         private readonly toyController: ToyController,
         private readonly faceTracker: FaceTracker,
-        private readonly delegate: DriverUpdateHandler
+        private readonly delegate: DriverUpdateHandler,
     ) {
         this.faceTracker.onDidUpdate(faceState => {
             this.updateFaceState(faceState);
@@ -50,7 +50,7 @@ export class Driver {
             if (this._active) {
                 this.toyController.setVibrationStrength(this._level * 20, new Milliseconds(500)).then(update);
             }
-        }
+        };
         update();
 
         clearInterval(this._updateInterval);
@@ -76,7 +76,7 @@ export class Driver {
                 isActivelyTracking: false,
                 isTrackingEnabled: !!(this._lastFaceState && this._lastFaceState.isTrackingEnabled),
                 tongue: 0,
-                transform: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+                transform: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
             },
         });
         this._lastFaceState = undefined;
@@ -154,10 +154,9 @@ export class Driver {
         this.delegate({
             level: math.clamp(0, 1,
                 (this._level * 0.8) + (math.clamp(0, 1, this._mouseHoldForce + this._tongeHoldForce) * 0.25)),
-            faceState: this._lastFaceState
+            faceState: this._lastFaceState,
         });
 
         this._mousePushForce = 0;
     }
 }
-

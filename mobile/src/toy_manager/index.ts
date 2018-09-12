@@ -5,27 +5,26 @@ import { Toy } from './toy';
 import { ToyList } from './toyList';
 
 export interface ToyManagerDelegate {
-    onUpdatedToys(toys: ToyList): void
-    onChangedBluetooth(isEnabled: boolean): void
+    onUpdatedToys(toys: ToyList): void;
+    onChangedBluetooth(isEnabled: boolean): void;
 }
 
 export interface ToyManager {
-    onReady(): Promise<ToyList>
+    onReady(): Promise<ToyList>;
 
-    beginScan(onFoundDevice: (devices: ToyList) => void): void
+    beginScan(onFoundDevice: (devices: ToyList) => void): void;
 
-    stopScan(): void
+    stopScan(): void;
 
-    connectToy(toy: Toy): Promise<Toy>
+    connectToy(toy: Toy): Promise<Toy>;
 
-    disconnectToy(toy: Toy): Promise<boolean>
+    disconnectToy(toy: Toy): Promise<boolean>;
 }
-
 
 export const getToyManager = (delegate: ToyManagerDelegate): ToyManager => {
     if (config.mock) {
-        return new MockToyManager(delegate)
+        return new MockToyManager(delegate);
     } else {
-        return new NativeToyManager(delegate)
+        return new NativeToyManager(delegate);
     }
-}
+};

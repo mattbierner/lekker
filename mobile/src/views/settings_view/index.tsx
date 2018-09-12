@@ -9,27 +9,26 @@ import { ToyManager } from '../../toy_manager';
 import { ToyList } from '../../toy_manager/toyList';
 import ScreenProps from '../screen_props';
 
-const AsplButton = require('apsl-react-native-button')
-
+const AsplButton = require('apsl-react-native-button');
 
 class SettingsSection extends React.Component<{ title?: JSX.Element }, {}> {
-    render() {
+    public render() {
         return (
             <View style={styles.section}>
                 {this.props.title}
                 {this.props.children}
             </View>
-        )
+        );
     }
 }
 
 class ToysSection extends React.PureComponent<{ toys: ToyList, toyManager: ToyManager, toyController: ToyController, onSupportedDevices: () => void, scanning: boolean, bluetoothEnabled: boolean }> {
-    render() {
+    public render() {
         const deviceTitle = (
             <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={styles.sectionHeader}>TOYS</Text>
             </View>
-        )
+        );
 
         return (
             <SettingsSection title={deviceTitle}>
@@ -51,7 +50,7 @@ class ToysSection extends React.PureComponent<{ toys: ToyList, toyManager: ToyMa
                     </AsplButton>
                 </View>
             </SettingsSection>
-        )
+        );
     }
 }
 
@@ -73,15 +72,14 @@ class ToysSection extends React.PureComponent<{ toys: ToyList, toyManager: ToyMa
 //     }
 // }
 
-interface SettingsViewProps extends ScreenProps { }
+type SettingsViewProps = ScreenProps;
 
 interface SetttingsViewState {
-    scanning: boolean
+    scanning: boolean;
 }
 
-
 export default class SettingsView extends React.Component<SettingsViewProps, SetttingsViewState> {
-    public static readonly route = routes.Settings
+    public static readonly route = routes.Settings;
 
     public static readonly navigationOptions = {
         title: 'Settings',
@@ -91,29 +89,29 @@ export default class SettingsView extends React.Component<SettingsViewProps, Set
             borderBottomColor: colors.black,
         },
         headerTitleStyle: {
-            color: colors.white
+            color: colors.white,
         },
-        headerTintColor: colors.white
-    }
+        headerTintColor: colors.white,
+    };
 
     constructor(props: SettingsViewProps) {
-        super(props)
+        super(props);
         this.state = {
-            scanning: false
-        }
+            scanning: false,
+        };
     }
 
-    componentWillMount() {
+    public componentWillMount() {
         this.setState({
-            scanning: this.props.screenProps.bluetoothEnabled
-        })
+            scanning: this.props.screenProps.bluetoothEnabled,
+        });
     }
 
-    componentWillReceiveProps() {
-        this.setState({ scanning: this.props.screenProps.bluetoothEnabled })
+    public componentWillReceiveProps() {
+        this.setState({ scanning: this.props.screenProps.bluetoothEnabled });
     }
 
-    render() {
+    public render() {
         return (
             <ScrollView style={styles.view}>
                 <StatusBar barStyle='light-content' />
@@ -147,15 +145,15 @@ export default class SettingsView extends React.Component<SettingsViewProps, Set
                 </SettingsSection>
 
             </ScrollView>
-        )
+        );
     }
 
     private onAbout(): void {
-        this.props.navigation.navigate(routes.About)
+        this.props.navigation.navigate(routes.About);
     }
 
     private onReport(): void {
-        Linking.openURL(config.reportIssueUrl)
+        Linking.openURL(config.reportIssueUrl);
     }
 
     private onSupportedDevices(): void {
@@ -167,7 +165,7 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         backgroundColor: colors.lightGray,
-        paddingTop: 20
+        paddingTop: 20,
     },
     section: {
         marginTop: 20,
@@ -184,17 +182,17 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 6,
-        borderRadius: 8
+        borderRadius: 8,
     },
     sectionHeader: {
         fontSize: 18,
         color: colors.gray,
         flex: 1,
         textAlign: 'center',
-        paddingBottom: 18
+        paddingBottom: 18,
     },
     button: {
-        color: colors.red
+        color: colors.red,
     },
     supportedToysButton: {
         borderWidth: 0,
@@ -203,6 +201,6 @@ const styles = StyleSheet.create({
         color: colors.black,
         fontFamily: 'HelveticaNeue',
         fontWeight: '300',
-        fontSize: 16
+        fontSize: 16,
     },
-})
+});

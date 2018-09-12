@@ -12,7 +12,7 @@ interface StatsViewProps {
 }
 
 export class StatsView extends React.PureComponent<StatsViewProps> {
-    render() {
+    public render() {
         const intensity = Math.max(0.025, this.props.vibrationIntensity);
 
         return <View style={this.props.style}>
@@ -50,7 +50,6 @@ const TongueStatus = (props: { faceState: FaceState | undefined, playing: boolea
     </View>;
 };
 
-
 const Bar = (props: { value: number }) =>
     <View style={{ display: 'flex', flexDirection: 'row' }}>
         <View style={{ flex: (1 - props.value) / 2 }} />
@@ -61,19 +60,18 @@ const Bar = (props: { value: number }) =>
 const styles = StyleSheet.create({
     bar: {
         paddingTop: 4,
-        paddingBottom: 6
+        paddingBottom: 6,
     },
     label: {
-        textAlign: 'center'
+        textAlign: 'center',
     },
     noFaceTrackingAlert: {
         color: colors.gray,
         textAlign: 'center',
         paddingTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
     },
     tongueStatus: {
-        height: 36
-    }
+        height: 36,
+    },
 });
-
