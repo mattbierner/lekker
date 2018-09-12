@@ -9,10 +9,17 @@ Control sex toys using your tongue. Lekker tracks your face in real time using t
 - [App Store](TODO)
 - [Introductory blog post](TODO)
 
+## Usage
+
+### Supported toys
+
+- Lovense Lush Vibrator
+- Lovense Hush Vibrator
+
 
 ## Contributing
 
-### Report an Issue
+### Report an issue
 If you run into any problems while using the app, please file an issue [here][newIssue]. Be sure to include:
 
 - What type of toys you had connected.
@@ -20,13 +27,13 @@ If you run into any problems while using the app, please file an issue [here][ne
 - What you expected to happen.
 - What actually happened.
 
-### Request a Feature
+### Request a feature
 If you have any ideas on how Lekker could be improved, please [submit a feature request][newIssue].
 
 If there you'd like to see another toy supported, either:
 
 - Submit a PR that adds support.
-- Or send my a new copy of the toy (along with relevant API documentation) so that I can integrate support into into the app.
+- Or send my a new copy of the toy (along with relevant API documentation) so that I can integrate support into the app.
 
 
 ### Code
@@ -42,6 +49,7 @@ mobile/ - React native application
 ```
 
 **Building the heart webview**
+
 The heart webview lives under `heart/`. The output is an html page that displays the 3D heart using WebGL (it uses a webview because I couldn't figure out how to code it in scenekit fast enough). To build it:
 
 ```bash
@@ -59,6 +67,7 @@ npx http-server .
 Then open `http://localhost:8080/`
 
 **Building the mobile app**
+
 The main iOS application is under `mobile/`. To build and run the app:
 
 ```bash
