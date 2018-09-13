@@ -82,7 +82,6 @@ npm start
 ```
 
 
-
 Note that only the code in this repo is licensed under MIT. Assets, such as the logo and help animations, are included in this repo but can only be used for Lekker. 
 
 

@@ -22,7 +22,7 @@
     NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"keys" ofType:@"plist"];
     NSDictionary* keys = [NSDictionary dictionaryWithContentsOfFile:plistPath];
 
-    [GADMobileAds configureWithApplicationID:[keys valueForKey:@"admobAppId"]];
+//    [GADMobileAds configureWithApplicationID:[keys valueForKey:@"admobAppId"]];
     
     NSURL *jsCodeLocation;
 

@@ -60,7 +60,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (NSString*) getToyType:(CBPeripheral*)peripheral {
-    if ([peripheral.name containsString:@"LVS-S"]) {
+    if ([peripheral.name containsString:@"LVS-S"] || [peripheral.name containsString:@"LVS-Lush"]) {
         return @"lush";
     }
     if ([peripheral.name containsString:@"LVS-Z"]) {
@@ -100,7 +100,12 @@ RCT_REMAP_METHOD(startScan,
     }
     _scanning = YES;
     
-    [self.cbManager scanForPeripheralsWithServices:@[[LovenseVibratorController serviceUUID]]
+    NSMutableArray* services = [[NSMutableArray alloc] init];
+    for (LovenseDeviceConnectionInfo* info in LovenseVibratorController.connectionInfo) {
+        [services addObject:info.serviceUUID];
+    }
+    
+    [self.cbManager scanForPeripheralsWithServices:services
                                          options:@{
                                                    CBCentralManagerScanOptionAllowDuplicatesKey: @YES
                                                    }];
@@ -196,12 +201,35 @@ RCT_REMAP_METHOD(disconnectToy,
 - (void)centralManager:(CBCentralManager *)central
   didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    if ([[LovenseVibratorController lushPeripheralName] isEqualToString:peripheral.name] ||
-        [[LovenseVibratorController hushPeripheralName] isEqualToString:peripheral.name])
+    peripheral.delegate = self;
+    
+    NSMutableArray* services = [[NSMutableArray alloc] init];
+    for (LovenseDeviceConnectionInfo* info in LovenseVibratorController.connectionInfo) {
+        [services addObject:info.serviceUUID];
+    }
+    
+    [peripheral discoverServices:services];
+}
+
+- (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
+    if ([[LovenseVibratorController lushPeripheralNames] containsObject:peripheral.name] ||
+        [[LovenseVibratorController hushPeripheralNames] containsObject:peripheral.name])
     {
-        [LovenseVibratorController createWithPeripheral:peripheral onReady:^(LovenseVibratorController* device, NSError* err) {
-            [_connected setObject:device forKey:peripheral.identifier.UUIDString];
-        }];
+        BOOL found = NO;
+        for (LovenseDeviceConnectionInfo* info in LovenseVibratorController.connectionInfo) {
+            for (CBService* service in peripheral.services) {
+                if ([info.serviceUUID isEqual:service.UUID]) {
+                    [LovenseVibratorController createWithPeripheral:peripheral connectionInfo:info onReady:^(LovenseVibratorController* device, NSError* err) {
+                        [_connected setObject:device forKey:peripheral.identifier.UUIDString];
+                    }];
+                    found = YES;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
     }
     
     NSMutableArray* callbacks = [_peripheralConnectionCallbacks objectForKey:peripheral.identifier.UUIDString];

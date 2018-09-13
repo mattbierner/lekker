@@ -4,7 +4,8 @@
 
 @interface ToyManager : RCTEventEmitter <
     RCTBridgeModule,
-    CBCentralManagerDelegate>
+    CBCentralManagerDelegate,
+    CBPeripheralDelegate>
 {
     CBCentralManager* _cbManager;
     NSMutableDictionary* _peripheralConnectionCallbacks;
