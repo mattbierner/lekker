@@ -10,7 +10,7 @@ export const reportIssueUrl = 'https://github.com/mattbierner/lekker/issues';
 /**
  * Mock out device connection
  */
-export const mock = true;
+export const mock = false;
 
 // Load webbview from localhost
 export const useLocalHostWebview = false;
