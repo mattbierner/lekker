@@ -1,15 +1,12 @@
 # Lekker
 
-**🚨 Work in progress. Not ready for consumption🚨**
-
-Control sex toys using your tongue. Lekker tracks your face in real time using the True Depth camera. To control the toys, you stick out your tongue to "lick" a virtual 3D heart shown in the app. The rate, intensity, and duration of your actions against the virtual heart determine the vibration strength of the real world toys.
+iOS app for controlling sex toys using your tongue. Lekker tracks your face in real time using the True Depth camera. To control the toys, you stick out your tongue to "lick" a virtual 3D heart shown in the app. The rate, intensity, and duration of your actions against the virtual heart determine the vibration strength of the real world toys.
 
 **Links**
 
-- [App Store](TODO)
-- [Introductory blog post](TODO)
+- [App Store](https://itunes.apple.com/us/app/lekker-toy-control/id1433985376?ls=1&mt=8)
+- [Introductory blog post](https://blog.mattbierner.com/lekker)
 
-## Usage
 
 ### Supported toys
 
